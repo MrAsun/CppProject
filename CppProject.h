@@ -4,21 +4,20 @@
 //
 #include <iostream>
 #include "math.h"
-#include <conio.h> 
+#include <conio.h>
+#include <string>
 
+namespace Project {
+	static string pizda;
+	static string huy;
+	static string zaluoda;
+	static string chlen;
+}
 
-
-
-
-\
 template <class printClass>
 void print(printClass value) {
 	std::cout << value << std::endl;
 };
-
-
-
-
 
 // =============== MODULS
 #pragma region MODULS
@@ -50,7 +49,6 @@ namespace Time {
 
 		// DeltaTime(bool reset - return and reset ticks)
 		double DeltaTime(bool reset = false) {
-
 			// Save delta
 			double delta = clock() - ticks;
 
@@ -65,7 +63,6 @@ namespace Time {
 
 		// Timer(float currentTime - time for timer, bool reset - return and reset ticks)
 		bool Timer(float currentTime, bool reset = false) {
-
 			// Save delta
 			double delta = DeltaTime();
 
@@ -74,11 +71,10 @@ namespace Time {
 				Reset();
 			}
 
-			// Return 
+			// Return
 			return delta > currentTime;
 		}
 	};
-
 
 	// Main time functions
 	int Time() {
@@ -88,7 +84,6 @@ namespace Time {
 	float DeltaTime() {
 		return (Time() - last_delta_time);
 	}
-
 
 	int Wait(int time) {
 		TimePoint timePoint = TimePoint();
@@ -101,8 +96,6 @@ namespace Time {
 		}
 	}
 
-
-
 	// Addition time functions
 	void ReloadDeltaTime() {
 		last_delta_time = Time();
@@ -111,7 +104,7 @@ namespace Time {
 
 // INPUT
 namespace Input {
-	// 
+	//
 	bool GetKey(char Key) {
 		if (_kbhit()) {
 			return (_getch() == Key);
@@ -132,8 +125,7 @@ namespace Input {
 namespace Math {
 	// attributes
 	const double pi = 3.141592;
-	 
-	
+
 	// Main values operators
 	float Absolute(float a) {
 		if (a < 0) { a = -a; }
@@ -145,7 +137,6 @@ namespace Math {
 		return value;
 	};
 
-
 	// Addition values operators
 	float Degree(float a, float b = 2) {
 		return pow(a, b);
@@ -153,7 +144,6 @@ namespace Math {
 	float Root(float a, float b = 2) {
 		return Degree(a, 1 / b);
 	};
-
 
 	// Angles
 		// Converting | direction - angle
@@ -167,15 +157,15 @@ namespace Math {
 
 		return angle;
 	};*/
-		
-		// Converting
+
+	// Converting
 	float DegreesToRadians(float Degrees) {
 		return Degrees * 0.01745;
 	};
 	float RadiansToDegrees(float Radians) {
 		return Radians / 0.01745;
 	};
-		// Cos | Sin | Tan
+	// Cos | Sin | Tan
 	float cosRadians(float angle) {
 		return std::cos(angle);
 	};
@@ -188,7 +178,7 @@ namespace Math {
 	float sin(float angle) {
 		return std::sin(DegreesToRadians(angle));
 	};
-		// Arc cos | Arc sin | Arctan
+	// Arc cos | Arc sin | Arctan
 	float arccos(float cos) {
 		return RadiansToDegrees(acos(cos));
 	}
@@ -217,20 +207,14 @@ namespace Random {
 
 #pragma endregion
 
-
-
-
-
-
 // =============== ADDITION CLASSES
 #pragma region ADDITION CLASSES
 // VECTOR 2
 class Vector2 {
-public: 
+public:
 	// Attributes
 	float x = 0;
 	float y = 0;
-
 
 	// initialization
 	Vector2(float x, float y) {
@@ -238,51 +222,49 @@ public:
 		this->y = y;
 	};
 
-
-	// Operations 
-	#pragma region Operation region
-		// print
+	// Operations
+#pragma region Operation region
+	// print
 	friend std::ostream& operator<<(std::ostream& os, const Vector2& self) {
 		return os << '(' << self.x << ',' << self.y << ')';
 	};
-		// Plus
+	// Plus
 	friend Vector2 operator+(const Vector2& v1, const Vector2& v2) {
 		return Vector2(v1.x + v2.x, v1.y + v2.y);
 	};
 	friend Vector2 operator+(const Vector2& v, const float value) {
 		return Vector2(v.x + value, v.y + value);
 	};
-		// Minus
+	// Minus
 	friend Vector2 operator-(const Vector2& v1, const Vector2& v2) {
 		return Vector2(v1.x - v2.x, v1.y - v2.y);
 	};
 	friend Vector2 operator-(const Vector2& v, const float value) {
 		return Vector2(v.x - value, v.y - value);
 	};
-		// Multiplication
+	// Multiplication
 	friend Vector2 operator*(const Vector2& v1, const Vector2& v2) {
 		return Vector2(v1.x * v2.x, v1.y * v2.y);
 	};
 	friend Vector2 operator*(const Vector2& v, const float value) {
 		return Vector2(v.x * value, v.y * value);
 	};
-		// Division
+	// Division
 	friend Vector2 operator/(const Vector2& v1, const Vector2& v2) {
 		return Vector2(v1.x / v2.x, v1.y / v2.y);
 	};
 	friend Vector2 operator/(const Vector2& v, const float value) {
 		return Vector2(v.x / value, v.y / value);
 	};
-	#pragma endregion
+#pragma endregion
 
 	// Static Values
-	#pragma region Static values region
+#pragma region Static values region
 	static Vector2 Up() { return Vector2(0, 1); }
 	static Vector2 Down() { return Vector2(0, -1); }
 	static Vector2 Right() { return Vector2(1, 0); }
 	static Vector2 Left() { return Vector2(-1, 0); }
-	#pragma endregion
-
+#pragma endregion
 
 	// Other functions
 	static float Distance(Vector2& v1, Vector2& v2) {
@@ -305,38 +287,31 @@ public:
 		this->blue = Math::Clamp(blue, 0, 256);
 	};
 
-
-
-	// Operations 
-	#pragma region Operation region
-		// print
+	// Operations
+#pragma region Operation region
+	// print
 	friend std::ostream& operator<<(std::ostream& os, const Color& self) {
 		return os << '(' << self.red << ',' << self.green << ',' << self.blue << ')';
 	};
-	#pragma endregion
+#pragma endregion
 
 	// Static Values
-	#pragma region Static values region
+#pragma region Static values region
 	static Color White() { return Color(256, 256, 256); }
 	static Color Black() { return Color(0, 0, 0); }
 
 	static Color Red() { return Color(256, 0, 0); }
 	static Color Green() { return Color(0, 256, 0); }
 	static Color Blue() { return Color(0, 0, 256); }
-	#pragma endregion
+#pragma endregion
 };
 
 #pragma endregion
 
-
-
-
-
-
-
-
+int maxFPS = 69;
 static bool Update() {
 	//
+	Time::Wait((1000 / maxFPS) - Time::DeltaTime());
 	Time::ReloadDeltaTime();
 
 	if (Input::GetKey('q')) { return false; }
